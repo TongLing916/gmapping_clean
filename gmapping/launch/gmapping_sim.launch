@@ -1,0 +1,57 @@
+<launch>
+
+  <param name="use_sim_time" value="true"/>
+  <arg name="scan_topic" default="sick_scan" />
+
+  <node pkg="gmapping" type="gmapping_node" name="gmapping_node" output="screen">
+
+    <remap from="scan" to="$(arg scan_topic)"/>
+
+    <!--  GMapping Wrapper paremeters -->
+    <param name="throttle_scans" value="1"/>
+    <param name="base_frame" value="base_link" />
+    <param name="odom_frame" value="odom"/>--
+    <param name="map_update_interval" value="5.0"/>                   <!-- Map update rate -->
+
+    <!-- Laser Parameters -->
+    <param name="maxRange" value="5.51" />                            <!-- Laser max range -->
+    <param name="maxUrange" value="5.5"/>                             <!-- Laser max usable range -->
+    <param name="sigma" value="0.05"/>                                <!-- Scan matching - gaussian sigma -->
+    <param name="kernelSize" value="1"/>                              <!-- Scan matching - search window size -->
+    <param name="lstep" value="0.05"/>                                <!-- Scan matching - linear step size -->
+    <param name="astep" value="0.05"/>                                <!-- Scan matching - angular step size -->
+    <param name="iterations" value="5"/>                              <!-- Scan matching - pptimization iterations -->
+    <param name="lsigma" value="0.075"/>                              <!-- Scan matching - likelihood sigma -->
+    <param name="ogain" value="3.0"/>                                 <!-- Likelihood gain -->
+    <param name="lskip" value="0"/>                                   <!-- Beam skip size  -->
+    <param name="minimumScore" value="50"/>                           <!-- scan matching - threshold to accept matching -->
+
+    <!-- Motion model parameters -->
+    <param name="srr" value="0.01"/>                                  <!-- Translational error due to translation -->
+    <param name="srt" value="0.005"/>                                 <!-- Angular error due to translation -->
+    <param name="str" value="0.01"/>        	                        <!-- Translational error due to rotation -->
+    <param name="stt" value="0.005"/>                                 <!-- Angular error due to rotation -->
+
+
+    <!-- Other parameters -->
+    <param name="linearUpdate" value="0.2"/>                          <!-- Linear threshold for processing scan -->
+    <param name="angularUpdate" value="0.2"/>                         <!-- Angular threshold for processing scan -->
+    <param name="temporalUpdate" value="5"/>                          <!-- Temporal threshold for processing scan -->
+    <param name="resampleThreshold" value="0.5"/>                     <!-- Threshold of effective particle' percentage -->
+    <param name="particles" value="30"/>                              <!-- Number of particles -->
+
+    <!-- Likelihood sampling parameters -->
+    <param name="llsamplerange" value="0.02"/>                          <!-- Range of linear sampling -->
+    <param name="llsamplestep" value="0.02"/>                           <!-- Step of linear sampling -->
+    <param name="lasamplerange" value="0.005"/>                         <!-- Range of angular sampling -->
+    <param name="lasamplestep" value="0.005"/>                          <!-- Step of angular samplinp -->
+
+    <!-- Map size and resolution -->
+    <param name="xmin" value="-1.0"/>                                  
+    <param name="ymin" value="-1.0"/>                                   
+    <param name="xmax" value="1.0"/>                                    
+    <param name="ymax" value="1.0"/>                                    
+    <param name="delta" value="0.025"/>                                 
+
+  </node>
+</launch>
